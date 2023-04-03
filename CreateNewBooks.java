@@ -386,9 +386,7 @@ public class CreateNewBooks extends JFrame {
                 rst = st.executeQuery(requete);
                 if (rst.next()) {
                     String Author = rst.getString("auteur");
-                    String a = rst.getString("titre");
-                    String b = rst.getString("categorie");
-                    String c = rst.getString("NBCopie");
+
                     if (Author == null) {
                         JOptionPane.showMessageDialog(null,
                                 "L'identifiant " + I + " correspond au livre " + rst.getString("titre")
@@ -535,7 +533,7 @@ public class CreateNewBooks extends JFrame {
                                         "Ce livre est deja emprunté, Voulez-vous vraiment le supprimer ?",
                                         "Confirmation de la suppression", JOptionPane.YES_NO_OPTION);
                                 if (choice == JOptionPane.YES_OPTION) {
-                                    int r = st.executeUpdate("delete from emprunt where LivID =" + ID);
+                                    st.executeUpdate("delete from emprunt where LivID =" + ID);
                                     supprime();
                                 } else {
                                     JOptionPane.showMessageDialog(null, "Suppression annulée", "Annulé",

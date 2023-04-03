@@ -700,8 +700,6 @@ public class Acceuil extends JFrame {
         private JLabel Titre2;
         private JComboBox TitreCheck;
         private JComboBox TitreLivre;
-        private JPanel jPanel5;
-        private JPanel jPanel6;
 
         String[] columnsRecherche = { "<HTML><center>Date <BR>d'emprunt</center></HTML>",
                         "<HTML><center>Identifiant<BR>Livre</center></HTML>",

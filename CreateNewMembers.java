@@ -380,7 +380,7 @@ public class CreateNewMembers {
                                             "Confirmation de la suppression", JOptionPane.YES_NO_OPTION);
 
                                     if (choice == JOptionPane.YES_OPTION) {
-                                        int r = st.executeUpdate("delete from emprunt where AbID =" + ID);
+                                        st.executeUpdate("delete from emprunt where AbID =" + ID);
                                         supprime();
                                     } else {
                                         JOptionPane.showMessageDialog(null, "Suppression annulée", "Annulé",
@@ -388,7 +388,7 @@ public class CreateNewMembers {
                                         IDSeDe.setText(null);
                                     }
                                 } else {
-                                    int r = st.executeUpdate("delete from emprunt where AbID =" + ID);
+                                    st.executeUpdate("delete from emprunt where AbID =" + ID);
                                     supprime();
                                 }
 
