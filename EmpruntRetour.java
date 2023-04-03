@@ -48,11 +48,8 @@ public class EmpruntRetour extends JFrame {
                 }
         }
 
-        @SuppressWarnings("unchecked")
-
         private void initComponents() {
 
-                dateComponentFormatter1 = new org.jdatepicker.impl.DateComponentFormatter();
                 TabbedPanel = new JTabbedPane();
                 EmpruntPanel = new JPanel();
                 jLabel9 = new JLabel();
@@ -620,7 +617,6 @@ public class EmpruntRetour extends JFrame {
         private JPanel RetourPanel;
         private JButton RetourValider;
         private JTabbedPane TabbedPanel;
-        private org.jdatepicker.impl.DateComponentFormatter dateComponentFormatter1;
         private JLabel jLabel10;
         private JLabel jLabel11;
         private JLabel jLabel12;

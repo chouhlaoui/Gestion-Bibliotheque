@@ -458,6 +458,7 @@ public class CreateNewBooks extends JFrame {
                                     JOptionPane.showMessageDialog(null, "Insertion bien effectuée", "Succes",
                                             JOptionPane.INFORMATION_MESSAGE);
                                     initialiser_secondPanel();
+                                    st.close();
                                 } else {
                                     JOptionPane.showMessageDialog(null, "Echec de l'insertion", "Echec",
                                             JOptionPane.ERROR_MESSAGE);
@@ -471,6 +472,7 @@ public class CreateNewBooks extends JFrame {
                                     JOptionPane.showMessageDialog(null, "Insertion bien effectuée", "Succes",
                                             JOptionPane.INFORMATION_MESSAGE);
                                     initialiser_secondPanel();
+                                    st.close();
                                 } else {
                                     JOptionPane.showMessageDialog(null, "Echec de l'insertion", "Echec",
                                             JOptionPane.ERROR_MESSAGE);
