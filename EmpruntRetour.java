@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.*;
 import java.util.Calendar;
 
@@ -48,6 +50,14 @@ public class EmpruntRetour extends JFrame {
                 }
         }
 
+        public boolean isConfirmation() {
+                return Confirmation;
+        }
+
+        public void SetConfirmation(Boolean a) {
+                Confirmation = a;
+        }
+
         private void initComponents() {
 
                 TabbedPanel = new JTabbedPane();
@@ -78,6 +88,12 @@ public class EmpruntRetour extends JFrame {
                 setName("Emprunt ou Retour des livres"); // NOI18N
                 setPreferredSize(new Dimension(450, 450));
                 setSize(new Dimension(450, 450));
+
+                addWindowListener(new WindowAdapter() {
+                        public void windowClosing(WindowEvent e) {
+                                Confirmation = true;
+                        }
+                });
 
                 EmpruntPanel.setBackground(new Color(255, 255, 255));
 
@@ -444,6 +460,7 @@ public class EmpruntRetour extends JFrame {
                                                                                 "Merci pour votre fidelité",
                                                                                 "Succés",
                                                                                 JOptionPane.INFORMATION_MESSAGE);
+                                                                Confirmation = true;
                                                         }
                                                 } else {
                                                         JOptionPane.showMessageDialog(null,
@@ -538,6 +555,7 @@ public class EmpruntRetour extends JFrame {
                                                                                                 "Succes",
                                                                                                 JOptionPane.INFORMATION_MESSAGE);
                                                                                 st2.close();
+                                                                                Confirmation = true;
                                                                         } else {
                                                                                 st.cancel();
                                                                                 JOptionPane.showMessageDialog(null,
@@ -576,36 +594,7 @@ public class EmpruntRetour extends JFrame {
 
         }
 
-        public static void main(String args[]) {
-                try {
-                        for (UIManager.LookAndFeelInfo info : UIManager
-                                        .getInstalledLookAndFeels()) {
-                                if ("Nimbus".equals(info.getName())) {
-                                        UIManager.setLookAndFeel(info.getClassName());
-                                        break;
-                                }
-                        }
-                } catch (ClassNotFoundException ex) {
-                        java.util.logging.Logger.getLogger(EmpruntRetour.class.getName())
-                                        .log(java.util.logging.Level.SEVERE, null, ex);
-                } catch (InstantiationException ex) {
-                        java.util.logging.Logger.getLogger(EmpruntRetour.class.getName())
-                                        .log(java.util.logging.Level.SEVERE, null, ex);
-                } catch (IllegalAccessException ex) {
-                        java.util.logging.Logger.getLogger(EmpruntRetour.class.getName())
-                                        .log(java.util.logging.Level.SEVERE, null, ex);
-                } catch (UnsupportedLookAndFeelException ex) {
-                        java.util.logging.Logger.getLogger(EmpruntRetour.class.getName())
-                                        .log(java.util.logging.Level.SEVERE, null, ex);
-                }
-
-                EventQueue.invokeLater(new Runnable() {
-                        public void run() {
-                                new EmpruntRetour().setVisible(true);
-                        }
-                });
-        }
-
+        private Boolean Confirmation = false;
         private com.toedter.calendar.JDateChooser EmpruntDatePick;
         private JTextField EmpruntID;
         private JComboBox EmpruntLivre;

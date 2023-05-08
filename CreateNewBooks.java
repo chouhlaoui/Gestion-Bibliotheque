@@ -54,8 +54,11 @@ public class CreateNewBooks extends JFrame {
         Categorie.setSelectedIndex(0);
 
         // -------------------------------------------------------------------------------
+        JTableHeader header = LivreActuel.getTableHeader();
+        header.setPreferredSize(new Dimension(header.getWidth(), 40));
 
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        // -------------------------------------------------------------------------------
+
         setTitle("Gestion des Livres");
         setBackground(new Color(255, 255, 255));
         setMaximumSize(new Dimension(900, 750));
@@ -298,34 +301,6 @@ public class CreateNewBooks extends JFrame {
         pack();
     }
 
-    public static void main(String args[]) {
-
-        try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Acceuil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Acceuil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Acceuil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Acceuil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        // </editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Acceuil().setVisible(true);
-            }
-        });
-    }
-
     private JButton AddButton;
     private JTextField Auteur;
     private JComboBox<String> Categorie;
@@ -346,7 +321,9 @@ public class CreateNewBooks extends JFrame {
     private JPanel SecondaryPanel;
     private JTextField Titre;
 
-    String[] columns = { "IDLivre", "Titre", "Auteur", "Categorie",
+    String[] columns = { "<HTML>DLivre<br></HTML>",
+            "<HTML>Titre<br></HTML>", "<HTML>Auteur<br><HTML>",
+            "<HTML>Categorie<br></HTML>",
             "<HTML><center>Nombre <br>de Copies</center></HTML>" };
     DefaultTableModel ModelTable = new DefaultTableModel(columns, 0);
     private JTable LivreActuel = new JTable(ModelTable);
@@ -645,6 +622,11 @@ public class CreateNewBooks extends JFrame {
             EmpruntRetour n = new EmpruntRetour();
             n.setVisible(true);
             n.setLocationRelativeTo(null);
+
+            if (n.isConfirmation() == true) {
+                RemplirJTable();
+                n.SetConfirmation(false);
+            }
         }
 
     }
