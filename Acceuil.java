@@ -101,7 +101,9 @@ public class Acceuil extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                         dispose();
-                        new Statistics();
+                        Statistics n = new Statistics();
+                        n.setVisible(true);
+                        n.setLocationRelativeTo(null);
                 }
 
         }
@@ -112,6 +114,8 @@ public class Acceuil extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                         dispose();
                         CreateNewMembers n = new CreateNewMembers();
+                        n.setVisible(true);
+                        n.setLocationRelativeTo(null);
 
                 }
 
@@ -250,7 +254,7 @@ public class Acceuil extends JFrame {
 
         private void initComponents() {
 
-                LivresEmprunt = new JPanel();
+                jPanel1 = new JPanel();
                 Titre1 = new JLabel();
                 RechercheEmprunt = new JPanel();
                 NomAbonné = new JComboBox();
@@ -264,38 +268,29 @@ public class Acceuil extends JFrame {
                 Abonnés = new JButton();
                 Livres = new JButton();
                 Statistiques = new JButton();
-                SousTitre1 = new JLabel();
                 LivreDispo = new JPanel();
                 RechercheDispo = new JPanel();
                 TitreCheck = new JComboBox();
                 Recherche2 = new JButton();
                 Titre2 = new JLabel();
-                SousTitre2 = new JLabel();
 
-                setBackground(new Color(255, 255, 255));
-                setMaximumSize(new Dimension(850, 740));
-                setMinimumSize(new Dimension(850, 740));
-                setName("Acceuil");
-                setPreferredSize(new Dimension(850, 740));
-                setSize(new Dimension(850, 740));
-                getContentPane().setLayout(
-                                new BoxLayout(getContentPane(), BoxLayout.LINE_AXIS));
+                setTitle("Acceuil");
+                setMaximumSize(new Dimension(1002, 770));
+                setMinimumSize(new Dimension(1002, 770));
+                setSize(new Dimension(1002, 770));
 
-                LivresEmprunt.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
-                LivresEmprunt.setPreferredSize(new Dimension(600, 700));
+                jPanel1.setBorder(BorderFactory.createEtchedBorder());
 
                 Titre1.setFont(new Font("Segoe UI", 1, 18)); // NOI18N
-                Titre1.setForeground(new Color(0, 153, 153));
-                Titre1.setHorizontalAlignment(SwingConstants.CENTER);
                 Titre1.setText("Livres empruntés");
 
-                RechercheEmprunt.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+                RechercheEmprunt.setBorder(BorderFactory.createEtchedBorder());
 
                 RemplirJComboAbonnes();
                 RemplirJComboTitre();
                 RemplirJComboTitle();
 
-                Recherche1.setText("Recherche");
+                Recherche1.setText("Rechercher");
                 Recherche1.addActionListener(new check());
 
                 TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(ModelTableRecherche);
@@ -308,7 +303,7 @@ public class Acceuil extends JFrame {
                 ScrollRecherche.setViewportView(TableRecherche);
                 if (TableRecherche.getColumnModel().getColumnCount() > 0) {
                         TableRecherche.getColumnModel().getColumn(0).setResizable(false);
-                        TableRecherche.getColumnModel().getColumn(0).setPreferredWidth(30);
+                        TableRecherche.getColumnModel().getColumn(0).setPreferredWidth(20);
                         TableRecherche.getColumnModel().getColumn(1).setResizable(false);
                         TableRecherche.getColumnModel().getColumn(1).setPreferredWidth(20);
                         TableRecherche.getColumnModel().getColumn(3).setResizable(false);
@@ -319,58 +314,68 @@ public class Acceuil extends JFrame {
                 RechercheEmprunt.setLayout(RechercheEmpruntLayout);
                 RechercheEmpruntLayout.setHorizontalGroup(
                                 RechercheEmpruntLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                .addGroup(RechercheEmpruntLayout.createSequentialGroup()
-                                                                .addGap(23, 23, 23)
-                                                                .addGroup(RechercheEmpruntLayout
-                                                                                .createParallelGroup(
-                                                                                                GroupLayout.Alignment.LEADING)
+                                                .addGroup(GroupLayout.Alignment.TRAILING,
+                                                                RechercheEmpruntLayout.createSequentialGroup()
+                                                                                .addContainerGap(16, Short.MAX_VALUE)
                                                                                 .addGroup(RechercheEmpruntLayout
-                                                                                                .createSequentialGroup()
-                                                                                                .addComponent(ScrollRecherche,
-                                                                                                                GroupLayout.PREFERRED_SIZE,
-                                                                                                                452,
-                                                                                                                GroupLayout.PREFERRED_SIZE)
-                                                                                                .addContainerGap(23,
-                                                                                                                Short.MAX_VALUE))
-                                                                                .addGroup(RechercheEmpruntLayout
-                                                                                                .createSequentialGroup()
-                                                                                                .addComponent(NomAbonné,
-                                                                                                                GroupLayout.PREFERRED_SIZE,
-                                                                                                                157,
-                                                                                                                GroupLayout.PREFERRED_SIZE)
-                                                                                                .addPreferredGap(
-                                                                                                                LayoutStyle.ComponentPlacement.RELATED,
-                                                                                                                GroupLayout.DEFAULT_SIZE,
-                                                                                                                Short.MAX_VALUE)
-                                                                                                .addComponent(TitreLivre,
-                                                                                                                GroupLayout.PREFERRED_SIZE,
-                                                                                                                157,
-                                                                                                                GroupLayout.PREFERRED_SIZE)
-                                                                                                .addGap(26, 26, 26)
-                                                                                                .addComponent(Recherche1)
-                                                                                                .addGap(17, 17, 17)))));
+                                                                                                .createParallelGroup(
+                                                                                                                GroupLayout.Alignment.LEADING,
+                                                                                                                false)
+                                                                                                .addGroup(RechercheEmpruntLayout
+                                                                                                                .createSequentialGroup()
+                                                                                                                .addComponent(ScrollRecherche,
+                                                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                                                553,
+                                                                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                                                .addGap(25, 25, 25))
+                                                                                                .addGroup(RechercheEmpruntLayout
+                                                                                                                .createSequentialGroup()
+                                                                                                                .addComponent(NomAbonné,
+                                                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                                                195,
+                                                                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                                                .addGap(28, 28, 28)
+                                                                                                                .addComponent(TitreLivre,
+                                                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                                                195,
+                                                                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                                                .addPreferredGap(
+                                                                                                                                LayoutStyle.ComponentPlacement.RELATED,
+                                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                                Short.MAX_VALUE)
+                                                                                                                .addComponent(Recherche1,
+                                                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                                                .addGap(37, 37, 37)))));
                 RechercheEmpruntLayout.setVerticalGroup(
                                 RechercheEmpruntLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                .addGroup(RechercheEmpruntLayout.createSequentialGroup()
-                                                                .addGap(20, 20, 20)
-                                                                .addGroup(RechercheEmpruntLayout
-                                                                                .createParallelGroup(
-                                                                                                GroupLayout.Alignment.BASELINE)
-                                                                                .addComponent(NomAbonné,
+                                                .addGroup(GroupLayout.Alignment.TRAILING,
+                                                                RechercheEmpruntLayout.createSequentialGroup()
+                                                                                .addGap(22, 22, 22)
+                                                                                .addGroup(RechercheEmpruntLayout
+                                                                                                .createParallelGroup(
+                                                                                                                GroupLayout.Alignment.BASELINE)
+                                                                                                .addComponent(TitreLivre,
+                                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                                38,
+                                                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                                .addComponent(Recherche1,
+                                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                                .addComponent(NomAbonné,
+                                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                                38,
+                                                                                                                GroupLayout.PREFERRED_SIZE))
+                                                                                .addPreferredGap(
+                                                                                                LayoutStyle.ComponentPlacement.RELATED,
+                                                                                                22, Short.MAX_VALUE)
+                                                                                .addComponent(ScrollRecherche,
                                                                                                 GroupLayout.PREFERRED_SIZE,
-                                                                                                32,
+                                                                                                199,
                                                                                                 GroupLayout.PREFERRED_SIZE)
-                                                                                .addComponent(TitreLivre,
-                                                                                                GroupLayout.PREFERRED_SIZE,
-                                                                                                32,
-                                                                                                GroupLayout.PREFERRED_SIZE)
-                                                                                .addComponent(Recherche1))
-                                                                .addGap(18, 18, 18)
-                                                                .addComponent(ScrollRecherche,
-                                                                                GroupLayout.PREFERRED_SIZE,
-                                                                                152,
-                                                                                GroupLayout.PREFERRED_SIZE)
-                                                                .addContainerGap(12, Short.MAX_VALUE)));
+                                                                                .addGap(14, 14, 14)));
 
                 TableRowSorter<DefaultTableModel> sorterEmprunt = new TableRowSorter<DefaultTableModel>(
                                 ModelTableEmprunt);
@@ -382,118 +387,46 @@ public class Acceuil extends JFrame {
                 ScrollEmprunt.setViewportView(TableEmprunt);
                 if (TableEmprunt.getColumnModel().getColumnCount() > 0) {
                         TableEmprunt.getColumnModel().getColumn(0).setResizable(false);
-                        TableEmprunt.getColumnModel().getColumn(0).setPreferredWidth(30);
+                        TableEmprunt.getColumnModel().getColumn(0).setPreferredWidth(20);
                         TableEmprunt.getColumnModel().getColumn(1).setResizable(false);
-                        TableEmprunt.getColumnModel().getColumn(1).setPreferredWidth(25);
+                        TableEmprunt.getColumnModel().getColumn(1).setPreferredWidth(20);
                         TableEmprunt.getColumnModel().getColumn(3).setResizable(false);
                         TableEmprunt.getColumnModel().getColumn(3).setPreferredWidth(25);
                 }
-
-                NavigationPanel.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
-                NavigationPanel.setMaximumSize(new Dimension(428, 58));
-                NavigationPanel.setMinimumSize(new Dimension(428, 58));
-
-                Emprunt.setText("Emprunt");
-                Emprunt.addActionListener(new emprunt());
-
-                Abonnés.setText("Abonnés");
-                Abonnés.addActionListener(new abonnes());
-
-                Livres.setText("Livres");
-                Livres.addActionListener(new livre());
-
-                Statistiques.setText("Historique");
-                Statistiques.addActionListener(new stats());
-
-                GroupLayout NavigationPanelLayout = new GroupLayout(NavigationPanel);
-                NavigationPanel.setLayout(NavigationPanelLayout);
-                NavigationPanelLayout.setHorizontalGroup(
-                                NavigationPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                .addGroup(NavigationPanelLayout.createSequentialGroup()
-                                                                .addContainerGap()
-                                                                .addComponent(Emprunt)
-                                                                .addGap(33, 33, 33)
-                                                                .addComponent(Abonnés)
-                                                                .addGap(33, 33, 33)
-                                                                .addComponent(Livres)
-                                                                .addPreferredGap(
-                                                                                LayoutStyle.ComponentPlacement.RELATED,
-                                                                                33,
-                                                                                Short.MAX_VALUE)
-                                                                .addComponent(Statistiques)
-                                                                .addContainerGap()));
-                NavigationPanelLayout.setVerticalGroup(
-                                NavigationPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                .addGroup(NavigationPanelLayout.createSequentialGroup()
-                                                                .addGap(14, 14, 14)
-                                                                .addGroup(NavigationPanelLayout
-                                                                                .createParallelGroup(
-                                                                                                GroupLayout.Alignment.BASELINE)
-                                                                                .addComponent(Emprunt)
-                                                                                .addGroup(NavigationPanelLayout
-                                                                                                .createParallelGroup(
-                                                                                                                GroupLayout.Alignment.BASELINE)
-                                                                                                .addComponent(Livres)
-                                                                                                .addComponent(Statistiques)
-                                                                                                .addComponent(Abonnés)))
-                                                                .addContainerGap(19, Short.MAX_VALUE)));
-
-                SousTitre1.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
-                SousTitre1.setForeground(new Color(255, 102, 51));
-                SousTitre1.setHorizontalAlignment(SwingConstants.CENTER);
-                SousTitre1.setText("Recherche");
-
-                GroupLayout LivresEmpruntLayout = new GroupLayout(LivresEmprunt);
-                LivresEmprunt.setLayout(LivresEmpruntLayout);
-                LivresEmpruntLayout.setHorizontalGroup(
-                                LivresEmpruntLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                .addGroup(LivresEmpruntLayout.createSequentialGroup()
-                                                                .addGap(200, 200, 200)
-                                                                .addComponent(Titre1,
-                                                                                GroupLayout.PREFERRED_SIZE,
-                                                                                159,
-                                                                                GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(0, 0, Short.MAX_VALUE))
-                                                .addGroup(GroupLayout.Alignment.TRAILING,
-                                                                LivresEmpruntLayout.createSequentialGroup()
-                                                                                .addContainerGap(49, Short.MAX_VALUE)
-                                                                                .addGroup(LivresEmpruntLayout
-                                                                                                .createParallelGroup(
-                                                                                                                GroupLayout.Alignment.LEADING)
-                                                                                                .addComponent(SousTitre1,
+                GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
+                jPanel1.setLayout(jPanel1Layout);
+                jPanel1Layout.setHorizontalGroup(
+                                jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addGroup(jPanel1Layout.createParallelGroup(
+                                                                                GroupLayout.Alignment.LEADING)
+                                                                                .addGroup(jPanel1Layout
+                                                                                                .createSequentialGroup()
+                                                                                                .addGap(240, 240, 240)
+                                                                                                .addComponent(Titre1,
                                                                                                                 GroupLayout.PREFERRED_SIZE,
-                                                                                                                91,
-                                                                                                                GroupLayout.PREFERRED_SIZE)
-                                                                                                .addComponent(ScrollEmprunt,
-                                                                                                                GroupLayout.PREFERRED_SIZE,
-                                                                                                                495,
-                                                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                                                181,
+                                                                                                                GroupLayout.PREFERRED_SIZE))
+                                                                                .addGroup(jPanel1Layout
+                                                                                                .createSequentialGroup()
+                                                                                                .addGap(16, 16, 16)
                                                                                                 .addComponent(RechercheEmprunt,
                                                                                                                 GroupLayout.PREFERRED_SIZE,
                                                                                                                 GroupLayout.DEFAULT_SIZE,
                                                                                                                 GroupLayout.PREFERRED_SIZE))
-                                                                                .addGap(49, 49, 49))
-                                                .addGroup(LivresEmpruntLayout.createSequentialGroup()
-                                                                .addGap(85, 85, 85)
-                                                                .addComponent(NavigationPanel,
-                                                                                GroupLayout.PREFERRED_SIZE,
-                                                                                GroupLayout.DEFAULT_SIZE,
-                                                                                GroupLayout.PREFERRED_SIZE)
-                                                                .addContainerGap(GroupLayout.DEFAULT_SIZE,
-                                                                                Short.MAX_VALUE)));
-                LivresEmpruntLayout.setVerticalGroup(
-                                LivresEmpruntLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                .addGroup(LivresEmpruntLayout.createSequentialGroup()
-                                                                .addGap(22, 22, 22)
-                                                                .addComponent(Titre1,
-                                                                                GroupLayout.PREFERRED_SIZE,
-                                                                                41,
-                                                                                GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(18, 18, 18)
-                                                                .addComponent(SousTitre1,
-                                                                                GroupLayout.PREFERRED_SIZE,
-                                                                                28,
-                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                .addGroup(jPanel1Layout
+                                                                                                .createSequentialGroup()
+                                                                                                .addGap(24, 24, 24)
+                                                                                                .addComponent(ScrollEmprunt,
+                                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                                581,
+                                                                                                                GroupLayout.PREFERRED_SIZE)))
+                                                                .addContainerGap(18, Short.MAX_VALUE)));
+                jPanel1Layout.setVerticalGroup(
+                                jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addGap(23, 23, 23)
+                                                                .addComponent(Titre1)
                                                                 .addGap(18, 18, 18)
                                                                 .addComponent(RechercheEmprunt,
                                                                                 GroupLayout.PREFERRED_SIZE,
@@ -502,20 +435,100 @@ public class Acceuil extends JFrame {
                                                                 .addGap(18, 18, 18)
                                                                 .addComponent(ScrollEmprunt,
                                                                                 GroupLayout.PREFERRED_SIZE,
-                                                                                220,
+                                                                                217,
                                                                                 GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(18, 18, 18)
-                                                                .addComponent(NavigationPanel,
+                                                                .addContainerGap(18, Short.MAX_VALUE)));
+
+                NavigationPanel.setBorder(BorderFactory.createEtchedBorder());
+
+                Livres.setText("Livres");
+                Livres.setMaximumSize(new Dimension(92, 31));
+                Livres.setMinimumSize(new Dimension(92, 31));
+                Livres.setPreferredSize(new Dimension(92, 31));
+
+                Emprunt.setText("Emprunt");
+                Emprunt.setMaximumSize(new Dimension(92, 31));
+                Emprunt.setMinimumSize(new Dimension(92, 31));
+                Emprunt.setPreferredSize(new Dimension(92, 31));
+
+                Statistiques.setText("Historique");
+                Statistiques.setMaximumSize(new Dimension(92, 31));
+                Statistiques.setMinimumSize(new Dimension(92, 31));
+                Statistiques.setPreferredSize(new Dimension(92, 31));
+
+                Abonnés.setText("Abonnés");
+                Abonnés.setMaximumSize(new Dimension(92, 31));
+                Abonnés.setMinimumSize(new Dimension(92, 31));
+                Abonnés.setPreferredSize(new Dimension(92, 31));
+
+                Statistiques.addActionListener(new stats());
+                Livres.addActionListener(new livre());
+                Abonnés.addActionListener(new abonnes());
+                Emprunt.addActionListener(new emprunt());
+
+                GroupLayout NavigationPanelLayout = new GroupLayout(NavigationPanel);
+                NavigationPanel.setLayout(NavigationPanelLayout);
+                NavigationPanelLayout.setHorizontalGroup(
+                                NavigationPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                .addGroup(NavigationPanelLayout.createSequentialGroup()
+                                                                .addGap(23, 23, 23)
+                                                                .addComponent(Livres,
+                                                                                GroupLayout.PREFERRED_SIZE,
                                                                                 GroupLayout.DEFAULT_SIZE,
+                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(
+                                                                                LayoutStyle.ComponentPlacement.RELATED,
+                                                                                36, Short.MAX_VALUE)
+                                                                .addComponent(Emprunt,
+                                                                                GroupLayout.PREFERRED_SIZE,
                                                                                 GroupLayout.DEFAULT_SIZE,
-                                                                                Short.MAX_VALUE)
-                                                                .addGap(22, 22, 22)));
+                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(29, 29, 29)
+                                                                .addComponent(Abonnés,
+                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(32, 32, 32)
+                                                                .addComponent(Statistiques,
+                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(28, 28, 28)));
+                NavigationPanelLayout.setVerticalGroup(
+                                NavigationPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                .addGroup(NavigationPanelLayout.createSequentialGroup()
+                                                                .addGap(19, 19, 19)
+                                                                .addGroup(NavigationPanelLayout.createParallelGroup(
+                                                                                GroupLayout.Alignment.BASELINE)
+                                                                                .addComponent(Emprunt,
+                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(Livres,
+                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(Statistiques,
+                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(Abonnés,
+                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                GroupLayout.PREFERRED_SIZE))
+                                                                .addContainerGap(24, Short.MAX_VALUE)));
 
-                getContentPane().add(LivresEmprunt);
+                LivreDispo.setBorder(BorderFactory.createEtchedBorder());
 
-                RechercheDispo.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+                Titre2.setFont(new Font("Segoe UI", 1, 18)); // NOI18N
+                Titre2.setText("Livres disponibles");
 
-                Recherche2.setText("Recherche");
+                RechercheDispo.setBorder(BorderFactory.createEtchedBorder());
+
+                Recherche2.setText("Vérifier");
+                Recherche2.setMaximumSize(new Dimension(92, 31));
+                Recherche2.setMinimumSize(new Dimension(92, 31));
+                Recherche2.setPreferredSize(new Dimension(92, 31));
                 Recherche2.addActionListener(new verifier());
 
                 GroupLayout RechercheDispoLayout = new GroupLayout(RechercheDispo);
@@ -523,32 +536,42 @@ public class Acceuil extends JFrame {
                 RechercheDispoLayout.setHorizontalGroup(
                                 RechercheDispoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                 .addGroup(RechercheDispoLayout.createSequentialGroup()
-                                                                .addGroup(RechercheDispoLayout
-                                                                                .createParallelGroup(
-                                                                                                GroupLayout.Alignment.LEADING)
-                                                                                .addGroup(RechercheDispoLayout
-                                                                                                .createSequentialGroup()
-                                                                                                .addGap(31, 31, 31)
-                                                                                                .addComponent(TitreCheck,
-                                                                                                                GroupLayout.PREFERRED_SIZE,
-                                                                                                                129,
-                                                                                                                GroupLayout.PREFERRED_SIZE))
-                                                                                .addGroup(RechercheDispoLayout
-                                                                                                .createSequentialGroup()
-                                                                                                .addGap(58, 58, 58)
-                                                                                                .addComponent(Recherche2)))
-                                                                .addContainerGap(34, Short.MAX_VALUE)));
+                                                                .addContainerGap(GroupLayout.DEFAULT_SIZE,
+                                                                                Short.MAX_VALUE)
+                                                                .addGroup(RechercheDispoLayout.createParallelGroup(
+                                                                                GroupLayout.Alignment.LEADING)
+                                                                                .addGroup(GroupLayout.Alignment.TRAILING,
+                                                                                                RechercheDispoLayout
+                                                                                                                .createSequentialGroup()
+                                                                                                                .addComponent(TitreCheck,
+                                                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                                                244,
+                                                                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                                                .addGap(35, 35, 35))
+                                                                                .addGroup(GroupLayout.Alignment.TRAILING,
+                                                                                                RechercheDispoLayout
+                                                                                                                .createSequentialGroup()
+                                                                                                                .addComponent(Recherche2,
+                                                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                                                .addGap(109, 109,
+                                                                                                                                109)))));
                 RechercheDispoLayout.setVerticalGroup(
                                 RechercheDispoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                .addGroup(RechercheDispoLayout.createSequentialGroup()
-                                                                .addGap(26, 26, 26)
-                                                                .addComponent(TitreCheck,
-                                                                                GroupLayout.PREFERRED_SIZE,
-                                                                                32,
-                                                                                GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(26, 26, 26)
-                                                                .addComponent(Recherche2)
-                                                                .addContainerGap(28, Short.MAX_VALUE)));
+                                                .addGroup(GroupLayout.Alignment.TRAILING,
+                                                                RechercheDispoLayout.createSequentialGroup()
+                                                                                .addGap(30, 30, 30)
+                                                                                .addComponent(TitreCheck,
+                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                38,
+                                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                .addGap(18, 18, 18)
+                                                                                .addComponent(Recherche2,
+                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addContainerGap(26, Short.MAX_VALUE)));
 
                 TableRowSorter<DefaultTableModel> sorterDispo = new TableRowSorter<DefaultTableModel>(
                                 ModelTableDispo);
@@ -563,70 +586,43 @@ public class Acceuil extends JFrame {
                         TableDispo.getColumnModel().getColumn(0).setPreferredWidth(25);
                 }
 
-                Titre2.setFont(new Font("Segoe UI", 1, 18)); // NOI18N
-                Titre2.setForeground(new Color(0, 153, 153));
-                Titre2.setHorizontalAlignment(SwingConstants.CENTER);
-                Titre2.setText("Livres disponibles");
-
-                SousTitre2.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
-                SousTitre2.setForeground(new Color(255, 102, 51));
-                SousTitre2.setHorizontalAlignment(SwingConstants.CENTER);
-                SousTitre2.setText("Recherche");
-
                 GroupLayout LivreDispoLayout = new GroupLayout(LivreDispo);
                 LivreDispo.setLayout(LivreDispoLayout);
                 LivreDispoLayout.setHorizontalGroup(
                                 LivreDispoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                .addGroup(LivreDispoLayout.createSequentialGroup()
+                                                                .addContainerGap()
+                                                                .addGroup(LivreDispoLayout.createParallelGroup(
+                                                                                GroupLayout.Alignment.LEADING)
+                                                                                .addGroup(GroupLayout.Alignment.TRAILING,
+                                                                                                LivreDispoLayout.createSequentialGroup()
+                                                                                                                .addGap(0, 0, Short.MAX_VALUE)
+                                                                                                                .addComponent(Titre2,
+                                                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                                                181,
+                                                                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                                                .addGap(47, 47, 47))
+                                                                                .addGroup(GroupLayout.Alignment.TRAILING,
+                                                                                                LivreDispoLayout.createSequentialGroup()
+                                                                                                                .addComponent(RechercheDispo,
+                                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                                Short.MAX_VALUE)
+                                                                                                                .addContainerGap())))
                                                 .addGroup(GroupLayout.Alignment.TRAILING, LivreDispoLayout
                                                                 .createSequentialGroup()
-                                                                .addContainerGap(34, Short.MAX_VALUE)
-                                                                .addGroup(LivreDispoLayout
-                                                                                .createParallelGroup(
-                                                                                                GroupLayout.Alignment.LEADING)
-                                                                                .addComponent(ScrollDispo,
-                                                                                                GroupLayout.PREFERRED_SIZE,
-                                                                                                196,
-                                                                                                GroupLayout.PREFERRED_SIZE)
-                                                                                .addGroup(LivreDispoLayout
-                                                                                                .createParallelGroup(
-                                                                                                                GroupLayout.Alignment.LEADING)
-                                                                                                .addGroup(GroupLayout.Alignment.TRAILING,
-                                                                                                                LivreDispoLayout
-                                                                                                                                .createSequentialGroup()
-                                                                                                                                .addComponent(Titre2,
-                                                                                                                                                GroupLayout.PREFERRED_SIZE,
-                                                                                                                                                159,
-                                                                                                                                                GroupLayout.PREFERRED_SIZE)
-                                                                                                                                .addGap(43, 43, 43))
-                                                                                                .addGroup(GroupLayout.Alignment.TRAILING,
-                                                                                                                LivreDispoLayout
-                                                                                                                                .createSequentialGroup()
-                                                                                                                                .addGroup(LivreDispoLayout
-                                                                                                                                                .createParallelGroup(
-                                                                                                                                                                GroupLayout.Alignment.LEADING)
-                                                                                                                                                .addComponent(RechercheDispo,
-                                                                                                                                                                GroupLayout.PREFERRED_SIZE,
-                                                                                                                                                                GroupLayout.DEFAULT_SIZE,
-                                                                                                                                                                GroupLayout.PREFERRED_SIZE)
-                                                                                                                                                .addComponent(SousTitre2,
-                                                                                                                                                                GroupLayout.PREFERRED_SIZE,
-                                                                                                                                                                91,
-                                                                                                                                                                GroupLayout.PREFERRED_SIZE))
-                                                                                                                                .addGap(20, 20, 20))))));
+                                                                .addContainerGap(23, Short.MAX_VALUE)
+                                                                .addComponent(ScrollDispo,
+                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                288,
+                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(21, 21, 21)));
                 LivreDispoLayout.setVerticalGroup(
                                 LivreDispoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                 .addGroup(LivreDispoLayout.createSequentialGroup()
-                                                                .addGap(27, 27, 27)
-                                                                .addComponent(Titre2,
-                                                                                GroupLayout.PREFERRED_SIZE,
-                                                                                41,
-                                                                                GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(26, 26, 26)
-                                                                .addComponent(SousTitre2,
-                                                                                GroupLayout.PREFERRED_SIZE,
-                                                                                28,
-                                                                                GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(18, 18, 18)
+                                                                .addGap(30, 30, 30)
+                                                                .addComponent(Titre2)
+                                                                .addGap(38, 38, 38)
                                                                 .addComponent(RechercheDispo,
                                                                                 GroupLayout.PREFERRED_SIZE,
                                                                                 GroupLayout.DEFAULT_SIZE,
@@ -634,11 +630,58 @@ public class Acceuil extends JFrame {
                                                                 .addPreferredGap(
                                                                                 LayoutStyle.ComponentPlacement.UNRELATED)
                                                                 .addComponent(ScrollDispo,
-                                                                                GroupLayout.DEFAULT_SIZE,
-                                                                                388, Short.MAX_VALUE)
-                                                                .addGap(24, 24, 24)));
+                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                360,
+                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                .addContainerGap(GroupLayout.DEFAULT_SIZE,
+                                                                                Short.MAX_VALUE)));
 
-                getContentPane().add(LivreDispo);
+                GroupLayout layout = new GroupLayout(getContentPane());
+                getContentPane().setLayout(layout);
+                layout.setHorizontalGroup(
+                                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                .addGroup(layout.createSequentialGroup()
+                                                                .addGap(12, 12, 12)
+                                                                .addComponent(jPanel1,
+                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                Short.MAX_VALUE)
+                                                                .addPreferredGap(
+                                                                                LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(LivreDispo,
+                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(12, 12, 12))
+                                                .addGroup(layout.createSequentialGroup()
+                                                                .addGap(229, 229, 229)
+                                                                .addComponent(NavigationPanel,
+                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                .addContainerGap(GroupLayout.DEFAULT_SIZE,
+                                                                                Short.MAX_VALUE)));
+                layout.setVerticalGroup(
+                                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                .addGroup(layout.createSequentialGroup()
+                                                                .addGap(15, 15, 15)
+                                                                .addGroup(layout.createParallelGroup(
+                                                                                GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(LivreDispo,
+                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(jPanel1,
+                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                GroupLayout.PREFERRED_SIZE))
+                                                                .addPreferredGap(
+                                                                                LayoutStyle.ComponentPlacement.UNRELATED)
+                                                                .addComponent(NavigationPanel,
+                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                .addContainerGap(16, Short.MAX_VALUE)));
 
                 pack();
         }
@@ -651,7 +694,7 @@ public class Acceuil extends JFrame {
         private JButton Emprunt;
         private JPanel LivreDispo;
         private JButton Livres;
-        private JPanel LivresEmprunt;
+        private JPanel jPanel1;
         private JPanel NavigationPanel;
         private JComboBox NomAbonné;
         private JButton Recherche1;
@@ -661,8 +704,6 @@ public class Acceuil extends JFrame {
         private JScrollPane ScrollDispo;
         private JScrollPane ScrollEmprunt;
         private JScrollPane ScrollRecherche;
-        private JLabel SousTitre1;
-        private JLabel SousTitre2;
         private JButton Statistiques;
         private JLabel Titre1;
         private JLabel Titre2;

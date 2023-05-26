@@ -3,518 +3,801 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.sql.*;
 
-public class CreateNewMembers {
+public class CreateNewMembers extends javax.swing.JFrame {
 
-    private JFrame frame = new JFrame();
-    private JScrollPane Scroll;
+        void remplir() {
+                ModelTable.setRowCount(0);
+                String requete = "select * from abonne";
+                try {
+                        st = bd.BaseDeDonnees().createStatement();
+                        rst = st.executeQuery(requete);
+                        while (rst.next()) {
+                                ModelTable.addRow(new Object[] {
+                                                rst.getString("id"), rst.getString("NomPrenom"),
+                                                rst.getString("Proffession")
+                                });
 
-    private JTextField IDSeDe = new JTextField();
-    private JTextField ID = new JTextField();
-    private JTextField Nom = new JTextField();
-    private JComboBox Profession = new JComboBox();
+                        }
+                } catch (SQLException ex) {
 
-    private JButton SearchButton = new JButton("Recherche");
-    private JButton DeleteButton = new JButton("Suppression");
-    private JButton AddButton = new JButton("Ajout");
-    private JButton ModifyButton = new JButton("Modification");
+                }
+        }
 
-    String[] columns = { "IDENTIFIANT", "Nom et Prenom", "Profession" };
-    DefaultTableModel ModelTable = new DefaultTableModel(columns, 0);
-    private JTable AbonneActuel = new JTable(ModelTable);
+        public CreateNewMembers() {
+                initComponents();
+        }
 
-    public Connecting bd = new Connecting();
-    ResultSet rst;
-    Statement st;
+        private void initComponents() {
 
-    void remplir() {
-        ModelTable.setRowCount(0);
-        String requete = "select * from abonne";
-        try {
-            st = bd.BaseDeDonnees().createStatement();
-            rst = st.executeQuery(requete);
-            while (rst.next()) {
-                ModelTable.addRow(new Object[] {
-                        rst.getString("id"), rst.getString("NomPrenom"), rst.getString("Proffession")
-                });
+                jPanel1 = new javax.swing.JPanel();
+                Scroll = new JScrollPane(AbonneActuel);
+                AbonneActuel = new javax.swing.JTable();
+                jPanel2 = new javax.swing.JPanel();
+                SearchButton = new javax.swing.JButton();
+                DeleteButton = new javax.swing.JButton();
+                IDSeDe = new javax.swing.JTextField();
+                NavigationPanel = new javax.swing.JPanel();
+                Home = new javax.swing.JButton();
+                Reservation = new javax.swing.JButton();
+                History = new javax.swing.JButton();
+                Books = new javax.swing.JButton();
+                jPanel3 = new javax.swing.JPanel();
+                Nom = new javax.swing.JTextField();
+                ID = new javax.swing.JTextField();
+                Profession = new javax.swing.JComboBox<>();
+                AddButton = new javax.swing.JButton();
+                ModifyButton = new javax.swing.JButton();
 
-            }
-        } catch (SQLException ex) {
+                setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                setMaximumSize(new java.awt.Dimension(1002, 770));
+                setMinimumSize(new java.awt.Dimension(1002, 770));
+                setPreferredSize(new java.awt.Dimension(1002, 770));
+                setSize(new java.awt.Dimension(1002, 770));
+
+                jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+                TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(ModelTable);
+                AbonneActuel.setRowSorter(sorter);
+                sorter.setSortKeys(java.util.Arrays.asList(new RowSorter.SortKey(1, SortOrder.ASCENDING)));
+
+                remplir();
+
+                javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+                jPanel1.setLayout(jPanel1Layout);
+                jPanel1Layout.setHorizontalGroup(
+                                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addContainerGap()
+                                                                .addComponent(Scroll,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                391, Short.MAX_VALUE)
+                                                                .addContainerGap()));
+                jPanel1Layout.setVerticalGroup(
+                                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addContainerGap()
+                                                                .addComponent(Scroll,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                688, Short.MAX_VALUE)
+                                                                .addContainerGap()));
+
+                jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+                SearchButton.setText("Rechercher");
+                SearchButton.setMaximumSize(new java.awt.Dimension(92, 31));
+                SearchButton.setMinimumSize(new java.awt.Dimension(92, 31));
+                SearchButton.setPreferredSize(new java.awt.Dimension(92, 31));
+
+                DeleteButton.setText("Supprimer");
+                DeleteButton.setMaximumSize(new java.awt.Dimension(92, 31));
+                DeleteButton.setMinimumSize(new java.awt.Dimension(92, 31));
+                DeleteButton.setPreferredSize(new java.awt.Dimension(92, 31));
+
+                IDSeDe.setUI(new hint("Identifiant de l'abonné :", true));
+                ID.setUI(new hint("Identifiant de l'abonné :", true));
+                Nom.setUI(new hint("Nom et prenom de l'abonné :", true));
+
+                javax.swing.GroupLayout firstLayout = new javax.swing.GroupLayout(jPanel2);
+                jPanel2.setLayout(firstLayout);
+                firstLayout.setHorizontalGroup(
+                                firstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, firstLayout
+                                                                .createSequentialGroup()
+                                                                .addGroup(firstLayout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                                .addGroup(firstLayout
+                                                                                                .createSequentialGroup()
+                                                                                                .addContainerGap(
+                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                Short.MAX_VALUE)
+                                                                                                .addComponent(DeleteButton,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                115,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                                .addGroup(firstLayout
+                                                                                                .createSequentialGroup()
+                                                                                                .addGap(75, 75, 75)
+                                                                                                .addComponent(IDSeDe,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                169,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                                .addPreferredGap(
+                                                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                                                                                92,
+                                                                                                                Short.MAX_VALUE)
+                                                                                                .addComponent(SearchButton,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                115,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                                .addGap(31, 31, 31)));
+                firstLayout.setVerticalGroup(
+                                firstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(firstLayout.createSequentialGroup()
+                                                                .addGroup(firstLayout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addGroup(firstLayout
+                                                                                                .createSequentialGroup()
+                                                                                                .addGap(54, 54, 54)
+                                                                                                .addComponent(SearchButton,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                                .addGroup(firstLayout
+                                                                                                .createSequentialGroup()
+                                                                                                .addGap(84, 84, 84)
+                                                                                                .addComponent(IDSeDe,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                30,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                                .addGap(10, 10, 10)
+                                                                .addComponent(DeleteButton,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addContainerGap(54, Short.MAX_VALUE)));
+
+                NavigationPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+                Profession.insertItemAt("Choisir Le profession : ", 0);
+                Profession.insertItemAt("Elève", 1);
+                Profession.insertItemAt("Enseignant", 2);
+                Profession.insertItemAt("Etudiant", 3);
+                Profession.insertItemAt("Autre", 4);
+                Profession.setSelectedIndex(0);
+
+                Home.setText("Acceuil");
+                Home.setMaximumSize(new java.awt.Dimension(92, 31));
+                Home.setMinimumSize(new java.awt.Dimension(92, 31));
+                Home.setPreferredSize(new java.awt.Dimension(92, 31));
+
+                Reservation.setText("Emprunt");
+                Reservation.setMaximumSize(new java.awt.Dimension(92, 31));
+                Reservation.setMinimumSize(new java.awt.Dimension(92, 31));
+                Reservation.setPreferredSize(new java.awt.Dimension(92, 31));
+
+                History.setText("Historique");
+                History.setMaximumSize(new java.awt.Dimension(92, 31));
+                History.setMinimumSize(new java.awt.Dimension(92, 31));
+                History.setPreferredSize(new java.awt.Dimension(92, 31));
+
+                Books.setText("Livres");
+                Books.setMaximumSize(new java.awt.Dimension(92, 31));
+                Books.setMinimumSize(new java.awt.Dimension(92, 31));
+                Books.setPreferredSize(new java.awt.Dimension(92, 31));
+
+                // -------------------------------------------------------------------------------
+                SearchButton.addActionListener(new Search());
+                AddButton.addActionListener(new Add());
+                DeleteButton.addActionListener(new Delete());
+                ModifyButton.addActionListener(new Modify());
+                Reservation.addActionListener(new Reservation());
+                Home.addActionListener(new Home());
+                Books.addActionListener(new Books());
+                History.addActionListener(new History());
+
+                // -------------------------------------------------------------------------------
+
+                javax.swing.GroupLayout NavigationPanelLayout = new javax.swing.GroupLayout(NavigationPanel);
+                NavigationPanel.setLayout(NavigationPanelLayout);
+                NavigationPanelLayout.setHorizontalGroup(
+                                NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(NavigationPanelLayout.createSequentialGroup()
+                                                                .addGap(23, 23, 23)
+                                                                .addComponent(Home,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                                                36,
+                                                                                Short.MAX_VALUE)
+                                                                .addComponent(Reservation,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(29, 29, 29)
+                                                                .addComponent(Books,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(32, 32, 32)
+                                                                .addComponent(History,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(28, 28, 28)));
+                NavigationPanelLayout.setVerticalGroup(
+                                NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(NavigationPanelLayout.createSequentialGroup()
+                                                                .addGap(19, 19, 19)
+                                                                .addGroup(NavigationPanelLayout
+                                                                                .createParallelGroup(
+                                                                                                javax.swing.GroupLayout.Alignment.BASELINE)
+                                                                                .addComponent(Reservation,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(Home,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(History,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(Books,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addContainerGap(24, Short.MAX_VALUE)));
+
+                jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+                AddButton.setText("Ajouter");
+                AddButton.setMaximumSize(new java.awt.Dimension(92, 31));
+                AddButton.setMinimumSize(new java.awt.Dimension(92, 31));
+                AddButton.setPreferredSize(new java.awt.Dimension(92, 31));
+
+                ModifyButton.setText("Modifier");
+                ModifyButton.setMaximumSize(new java.awt.Dimension(92, 31));
+                ModifyButton.setMinimumSize(new java.awt.Dimension(92, 31));
+                ModifyButton.setPreferredSize(new java.awt.Dimension(92, 31));
+
+                javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+                jPanel3.setLayout(jPanel3Layout);
+                jPanel3Layout.setHorizontalGroup(
+                                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                                                .addGap(36, 36, 36)
+                                                                .addGroup(jPanel3Layout
+                                                                                .createParallelGroup(
+                                                                                                javax.swing.GroupLayout.Alignment.LEADING,
+                                                                                                false)
+                                                                                .addComponent(Nom)
+                                                                                .addComponent(ID)
+                                                                                .addComponent(Profession, 0, 185,
+                                                                                                Short.MAX_VALUE))
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                                                74,
+                                                                                Short.MAX_VALUE)
+                                                                .addGroup(jPanel3Layout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(AddButton,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                115,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(ModifyButton,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                115,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addGap(46, 46, 46)));
+                jPanel3Layout.setVerticalGroup(
+                                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                                                .addGroup(jPanel3Layout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addGroup(jPanel3Layout
+                                                                                                .createSequentialGroup()
+                                                                                                .addGap(36, 36, 36)
+                                                                                                .addComponent(ID,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                30,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                                .addGap(35, 35, 35)
+                                                                                                .addComponent(Nom,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                30,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                                .addGap(31, 31, 31)
+                                                                                                .addComponent(Profession,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                32,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                                .addGroup(jPanel3Layout
+                                                                                                .createSequentialGroup()
+                                                                                                .addGap(67, 67, 67)
+                                                                                                .addComponent(AddButton,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                                .addGap(34, 34, 34)
+                                                                                                .addComponent(ModifyButton,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                                .addContainerGap(43, Short.MAX_VALUE)));
+
+                javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+                getContentPane().setLayout(layout);
+                layout.setHorizontalGroup(
+                                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(layout.createSequentialGroup()
+                                                                .addGap(28, 28, 28)
+                                                                .addComponent(jPanel1,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGroup(layout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addGroup(layout.createSequentialGroup()
+                                                                                                .addPreferredGap(
+                                                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                Short.MAX_VALUE)
+                                                                                                .addGroup(layout
+                                                                                                                .createParallelGroup(
+                                                                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                                                                                layout.createSequentialGroup()
+                                                                                                                                                .addComponent(NavigationPanel,
+                                                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                                                                                .addGap(21, 21, 21))
+                                                                                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                                                                                layout.createSequentialGroup()
+                                                                                                                                                .addComponent(jPanel3,
+                                                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                                                                                .addGap(53, 53, 53))))
+                                                                                .addGroup(layout.createSequentialGroup()
+                                                                                                .addGap(70, 70, 70)
+                                                                                                .addComponent(jPanel2,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                                .addGap(0, 35, Short.MAX_VALUE)))));
+                layout.setVerticalGroup(
+                                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(layout.createSequentialGroup()
+                                                                .addGap(16, 16, 16)
+                                                                .addComponent(jPanel1,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addContainerGap(24, Short.MAX_VALUE))
+                                                .addGroup(layout.createSequentialGroup()
+                                                                .addGap(44, 44, 44)
+                                                                .addComponent(jPanel2,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(56, 56, 56)
+                                                                .addComponent(jPanel3,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                Short.MAX_VALUE)
+                                                                .addComponent(NavigationPanel,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(47, 47, 47)));
+
+                pack();
+        }
+
+        public Boolean Test(int n) {
+                ResultSet rst;
+
+                String requete = "select * from abonne where id =" + n;
+                try {
+                        st = bd.BaseDeDonnees().createStatement();
+                        rst = st.executeQuery(requete);
+                        if (rst.next()) { // Check if result set is not empty
+                                return true;
+                        } else {
+                                return false;
+                        }
+                } catch (SQLException ex) {
+                        return false;
+                }
+        }
+
+        class Search implements ActionListener {
+                private int ID;
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                        try {
+                                ID = Integer.parseInt(CreateNewMembers.this.IDSeDe.getText().toString());
+
+                                ResultSet rst;
+                                Statement st;
+
+                                String requete = "select * from abonne where id ='" + ID + "'";
+
+                                st = bd.BaseDeDonnees().createStatement();
+                                rst = st.executeQuery(requete);
+
+                                if (rst.next()) {
+                                        JOptionPane.showMessageDialog(null,
+                                                        "L'identifiant " + ID + " correspond à l'abonnée "
+                                                                        + rst.getString("NomPrenom")
+                                                                        + " qui a comme profession "
+                                                                        + rst.getString("proffession"),
+                                                        "Résultat recherche", JOptionPane.INFORMATION_MESSAGE);
+                                        IDSeDe.setText(null);
+
+                                } else {
+                                        JOptionPane.showMessageDialog(null, "Cet identifiant n'est pas utilisé",
+                                                        "Résultat recherche",
+                                                        JOptionPane.ERROR_MESSAGE);
+                                }
+                        } catch (NumberFormatException exception) {
+                                JOptionPane.showMessageDialog(null, "L'identifiant doit etre un entier",
+                                                "Entrée Invalide",
+                                                JOptionPane.ERROR_MESSAGE);
+                        }
+
+                        catch (SQLException ex) {
+                        }
+
+                }
 
         }
-    }
 
-    public CreateNewMembers() {
-        frame.setTitle("Gestion des Membres");
-        frame.setSize(850, 700);
-        frame.setLocationRelativeTo(null);
+        void initialiserChamps() {
+                Nom.setText(null);
+                ID.setText(null);
+                Profession.setSelectedIndex(0);
+                remplir();
+        }
 
-        JPanel p = new JPanel();
-        p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
+        class Add implements ActionListener {
+                private int I;
+                private String name;
+                private String Job;
 
-        // Responsible of the list of Books
-        JPanel MainPanel = new JPanel();
+                @Override
+                public void actionPerformed(ActionEvent e) {
 
-        // Sort the table according the column you choose
-        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(ModelTable);
-        AbonneActuel.setRowSorter(sorter);
-        sorter.setSortKeys(java.util.Arrays.asList(new RowSorter.SortKey(1, SortOrder.ASCENDING)));
+                        try {
+                                I = Integer.parseInt(CreateNewMembers.this.ID.getText().toString());
+                                name = Nom.getText().toString();
+                                Job = Profession.getSelectedItem().toString();
 
-        JTableHeader header = AbonneActuel.getTableHeader();
-        header.setPreferredSize(new Dimension(header.getWidth(), 40));
+                                if (Test(I) == false) {
+                                        if (name.isEmpty() || Job.equals(Profession.getItemAt(0))) {
+                                                JOptionPane.showMessageDialog(null, "Veuillez remplier tous les champs",
+                                                                "Erreur Saisie",
+                                                                JOptionPane.ERROR_MESSAGE);
+                                        } else {
+                                                int choice = JOptionPane.showConfirmDialog(null,
+                                                                "Voulez-vous ajouter ce nouveau abonné",
+                                                                "Confirmation", JOptionPane.YES_NO_OPTION);
+                                                if (choice == JOptionPane.YES_OPTION) {
+                                                        Statement st = bd.BaseDeDonnees().createStatement();
+                                                        String qr = "INSERT INTO abonne (id, NomPrenom, Proffession) VALUES ("
+                                                                        + I + ", '" + name
+                                                                        + "', '" + Job + "')";
+                                                        int res = st.executeUpdate(qr);
+                                                        if (res > 0) {
+                                                                JOptionPane.showMessageDialog(null,
+                                                                                "Insertion bien effectuée", "Succes",
+                                                                                JOptionPane.INFORMATION_MESSAGE);
+                                                                initialiserChamps();
 
-        Scroll = new JScrollPane(AbonneActuel);
-        Scroll.setMaximumSize(new Dimension(300, 650));
-        Scroll.setPreferredSize(new Dimension(300, 650));
-        AbonneActuel.setAutoCreateRowSorter(true);
-        MainPanel.add(Scroll);
+                                                        } else {
+                                                                JOptionPane.showMessageDialog(null,
+                                                                                "Echec de l'insertion", "Echec",
+                                                                                JOptionPane.ERROR_MESSAGE);
+                                                        }
+                                                } else {
+                                                        initialiserChamps();
+                                                }
+                                        }
 
-        remplir();
+                                } else {
+                                        JOptionPane.showMessageDialog(null, "ID already used", "Invalid Input",
+                                                        JOptionPane.ERROR_MESSAGE);
+                                }
+                        } catch (NumberFormatException exception) {
+                                JOptionPane.showMessageDialog(null, "L'identifiant doit etre un entier",
+                                                "Entrée Invalide",
+                                                JOptionPane.ERROR_MESSAGE);
+                        } catch (SQLException ex) {
+                        }
 
-        // Responsible of the control part
-        JPanel SecondaryPanel = new JPanel();
-        SecondaryPanel.setLayout(new GridLayout(3, 1));
+                }
 
-        // -------------------------------------------------------------------------------
+        }
 
-        JPanel Panel1 = new JPanel();
-        Panel1.setLayout(new BoxLayout(Panel1, BoxLayout.X_AXIS));
+        class Delete implements ActionListener {
+                private int ID;
 
-        JPanel Search_Add_Panel = new JPanel();
-        Search_Add_Panel.setLayout(new GridBagLayout());
+                void supprime() throws SQLException {
+                        st = bd.BaseDeDonnees().createStatement();
+                        int res = st.executeUpdate("delete from abonne where id =" + ID);
+                        if (res > 0) {
+                                JOptionPane.showMessageDialog(null, "Suppression bien effectuée", "Succes",
+                                                JOptionPane.INFORMATION_MESSAGE);
+                                IDSeDe.setText(null);
+                                remplir();
+                        } else {
+                                JOptionPane.showMessageDialog(null, "Echec de la Suppression", "Echec",
+                                                JOptionPane.ERROR_MESSAGE);
+                                IDSeDe.setText(null);
+                        }
+                }
 
-        GridBagConstraints c2 = new GridBagConstraints();
-        c2.insets = new Insets(3, 3, 3, 3);
+                void updatetables(int id) throws SQLException {
+                        Statement st2 = bd.BaseDeDonnees().createStatement();
 
-        c2.gridx = 0;
-        c2.gridy = 0;
-        c2.ipadx = 5;
-        c2.ipady = 5;
+                        try {
+                                st2.executeUpdate("delete from emprunt where Abid =" + ID);
 
-        SearchButton.setMaximumSize(new Dimension(100, 30));
-        DeleteButton.setMaximumSize(new Dimension(120, 30));
-        SearchButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        DeleteButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+                        } catch (Exception exception) {
+                        }
+                }
 
-        Search_Add_Panel.add(SearchButton, c2);
-        Search_Add_Panel.add(Box.createVerticalStrut(10));
+                void insert(int id) throws SQLException {
+                        Statement st1 = bd.BaseDeDonnees().createStatement();
+                        Statement st12 = bd.BaseDeDonnees().createStatement();
 
-        c2.gridy = 1;
-        Search_Add_Panel.add(DeleteButton, c2);
+                        try {
 
-        IDSeDe.setUI(new hint("Identifiant de l'abonné :", true));
-        IDSeDe.setMaximumSize(new Dimension(200, 25));
-        IDSeDe.setMinimumSize(new Dimension(200, 25));
-        IDSeDe.setPreferredSize(new Dimension(200, 25));
+                                rst = st12.executeQuery("select * from abonne where id = " + ID);
+                                if (rst.next()) {
+                                        st1.executeUpdate("insert into ancienabonne (NomPrenom)values (\""
+                                                        + rst.getString("NomPrenom") + "\")");
+                                }
 
-        Panel1.add(IDSeDe);
-        Panel1.add(Box.createHorizontalStrut(10));
-        Panel1.add(Search_Add_Panel);
+                        } catch (Exception exception) {
+                        }
+                }
 
-        // -------------------------------------------------------------------------------
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                        // il faut penser à la dependance
+                        try {
+                                ID = Integer.parseInt(CreateNewMembers.this.IDSeDe.getText().toString());
 
-        JPanel Panel2 = new JPanel();
-        Panel2.setLayout(new BoxLayout(Panel2, BoxLayout.X_AXIS));
+                                if (Test(ID) == true) {
+                                        int choice = JOptionPane.showConfirmDialog(null,
+                                                        "Voulez-vous vraiment supprimer ce membre ?",
+                                                        "Confirmation de la suppression", JOptionPane.YES_NO_OPTION);
 
-        ID.setMaximumSize(new Dimension(200, 25));
-        Nom.setMaximumSize(new Dimension(200, 25));
-        Profession.setMaximumSize(new Dimension(200, 25));
-        ID.setPreferredSize(new Dimension(200, 25));
-        Nom.setPreferredSize(new Dimension(200, 25));
-        Profession.setPreferredSize(new Dimension(200, 25));
+                                        if (choice == JOptionPane.YES_OPTION) {
+                                                try {
 
-        ID.setUI(new hint("Identifiant de l'abonné :", true));
-        Nom.setUI(new hint("Nom et prenom de l'abonné :", true));
+                                                        st = bd.BaseDeDonnees().createStatement();
+                                                        rst = st.executeQuery(
+                                                                        "select * from emprunt where AbID = " + ID);
 
-        JPanel Panel21 = new JPanel();
-        Panel21.setLayout(new BoxLayout(Panel21, BoxLayout.Y_AXIS));
-        Panel21.add(ID);
-        Panel21.add(Box.createVerticalStrut(10));
-        Panel21.add(Nom);
-        Panel21.add(Box.createVerticalStrut(10));
+                                                        if (rst.next()) {
+                                                                rst = st.executeQuery(
+                                                                                "select * from emprunt where Retour is null");
+                                                                if (rst.next()) {
+                                                                        choice = JOptionPane.showConfirmDialog(null,
+                                                                                        "Cet abonné n'a pas encore rendu un ou plusieurs livres, Voulez-vous vraiment le supprimer ?",
+                                                                                        "Confirmation de la suppression",
+                                                                                        JOptionPane.YES_NO_OPTION);
 
-        Profession.insertItemAt("Choisir Le profession : ", 0);
-        Profession.insertItemAt("Elève", 1);
-        Profession.insertItemAt("Enseignant", 2);
-        Profession.insertItemAt("Etudiant", 3);
-        Profession.insertItemAt("Autre", 4);
-        Profession.setSelectedIndex(0);
+                                                                        if (choice == JOptionPane.YES_OPTION) {
+                                                                                insert(ID);
+                                                                                updatetables(ID);
+                                                                                supprime();
+                                                                        } else {
+                                                                                JOptionPane.showMessageDialog(null,
+                                                                                                "Suppression annulée",
+                                                                                                "Annulé",
+                                                                                                JOptionPane.INFORMATION_MESSAGE);
+                                                                                IDSeDe.setText(null);
+                                                                        }
+                                                                } else {
+                                                                        insert(ID);
+                                                                        supprime();
+                                                                }
 
-        Panel21.add(Profession);
+                                                        } else {
+                                                                supprime();
+                                                        }
 
-        AddButton.setMaximumSize(new Dimension(100, 30));
-        ModifyButton.setMaximumSize(new Dimension(120, 30));
-        AddButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        ModifyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+                                                } catch (SQLException ex) {
+                                                }
+                                        }
+                                } else {
+                                        JOptionPane.showMessageDialog(null, "Cet identifiant n'est pas utilisé",
+                                                        "Entrée Invalide",
+                                                        JOptionPane.ERROR_MESSAGE);
+                                }
+                        } catch (NumberFormatException exception) {
+                                JOptionPane.showMessageDialog(null, "L'identifiant doit etre un entier",
+                                                "Entrée Invalide",
+                                                JOptionPane.ERROR_MESSAGE);
+                        }
 
-        JPanel Panel22 = new JPanel();
-        Panel22.setLayout(new GridBagLayout());
-        GridBagConstraints c1 = new GridBagConstraints();
-        c1.insets = new Insets(3, 3, 3, 3);
+                }
 
-        c1.gridx = 0;
-        c1.gridy = 0;
-        c1.ipadx = 5;
-        c1.ipady = 5;
+        }
 
-        Panel22.add(AddButton, c1);
-        Panel22.add(Box.createVerticalStrut(10));
+        class Modify implements ActionListener {
+                private int ID;
+                private String name;
+                private String Job;
+                private Statement st;
 
-        c1.gridy = 1;
-        Panel22.add(ModifyButton, c1);
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                        // il faut penser à la dependance
+                        try {
+                                ID = Integer.parseInt(CreateNewMembers.this.ID.getText().toString());
+                                name = Nom.getText().toString();
+                                Job = Profession.getSelectedItem().toString();
 
-        Panel2.add(Panel21);
-        Panel2.add(Box.createHorizontalStrut(10));
-        Panel2.add(Panel22);
+                                if (Test(ID) == true) {
+                                        int choice = JOptionPane.showConfirmDialog(null,
+                                                        "Voulez-vous vraiment modifier ce membre ?",
+                                                        "Confirmation de la modification", JOptionPane.YES_NO_OPTION);
+                                        if (choice == JOptionPane.YES_OPTION) {
+                                                try {
+                                                        st = bd.BaseDeDonnees().createStatement();
 
-        // -------------------------------------------------------------------------------
+                                                        if (name.isEmpty() && !Job.equals(Profession.getItemAt(0))) {
+                                                                String qr = "update abonne set Proffession='" + Job
+                                                                                + "' where id='" + ID + "'";
+                                                                int result = st.executeUpdate(qr);
+                                                                if (result > 0) {
+                                                                        JOptionPane.showMessageDialog(null,
+                                                                                        "Moodification bien effectuée",
+                                                                                        "Modification",
+                                                                                        JOptionPane.INFORMATION_MESSAGE);
+                                                                        initialiserChamps();
+                                                                }
 
-        JPanel NavigationPanel = new JPanel();
-        NavigationPanel.setLayout(new GridBagLayout());
+                                                        } else if (!name.isEmpty()
+                                                                        && Job.equals(Profession.getItemAt(0))) {
+                                                                String qr = "update abonne set NomPrenom='" + name
+                                                                                + "' where id=" + ID;
+                                                                int result = st.executeUpdate(qr);
+                                                                if (result > 0) {
+                                                                        JOptionPane.showMessageDialog(null,
+                                                                                        "Modification bien effectuée",
+                                                                                        "Modification",
+                                                                                        JOptionPane.INFORMATION_MESSAGE);
+                                                                        initialiserChamps();
+                                                                }
 
-        GridBagConstraints c = new GridBagConstraints();
-        c.insets = new Insets(3, 3, 3, 3);
+                                                        } else if (!name.isEmpty()
+                                                                        && !Job.equals(Profession.getItemAt(0))) {
+                                                                String qr = "update abonne set NomPrenom='" + name
+                                                                                + "' where id=" + ID;
+                                                                int result = st.executeUpdate(qr);
+                                                                qr = "update abonne set Proffession='" + Job
+                                                                                + "' where id='" + ID + "'";
+                                                                result = st.executeUpdate(qr);
+                                                                if (result > 0) {
+                                                                        JOptionPane.showMessageDialog(null,
+                                                                                        "Modification bien effectuée",
+                                                                                        "Modification",
+                                                                                        JOptionPane.INFORMATION_MESSAGE);
+                                                                        initialiserChamps();
+                                                                }
 
-        JButton Home = new JButton("Acceuil");
-        Home.setHorizontalAlignment(SwingConstants.CENTER);
-        c.gridx = 0;
-        c.gridy = 0;
-        c.ipadx = 5;
-        c.ipady = 5;
-        NavigationPanel.add(Home, c);
+                                                        } else if (name.isEmpty()
+                                                                        && Job.equals(Profession.getItemAt(0))) {
+                                                                JOptionPane.showMessageDialog(null, "Rien à modifier",
+                                                                                "Modification",
+                                                                                JOptionPane.INFORMATION_MESSAGE);
+                                                                CreateNewMembers.this.ID.setText(null);
+                                                        }
+                                                } catch (SQLException ex) {
+                                                }
+                                        }
+                                } else {
+                                        JOptionPane.showMessageDialog(null, "Cet identifiant n'est pas utilisé",
+                                                        "Entrée Invalide",
+                                                        JOptionPane.ERROR_MESSAGE);
+                                }
+                        } catch (NumberFormatException exception) {
+                                JOptionPane.showMessageDialog(null, "L'identifiant doit etre un entier",
+                                                "Entrée Invalide",
+                                                JOptionPane.ERROR_MESSAGE);
+                        }
 
-        JButton Reservation = new JButton("Emprunt");
-        Reservation.setHorizontalAlignment(SwingConstants.CENTER);
-        c.gridx = 1;
-        NavigationPanel.add(Reservation, c);
+                }
 
-        JButton Books = new JButton("Livres");
-        Books.setHorizontalAlignment(SwingConstants.CENTER);
-        c.gridx = 2;
-        NavigationPanel.add(Books, c);
+        }
 
-        // -------------------------------------------------------------------------------
+        class Reservation implements ActionListener {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                        EmpruntRetour n = new EmpruntRetour();
+                        n.setVisible(true);
+                        n.setLocationRelativeTo(null);
 
-        SecondaryPanel.add(Panel1);
-        SecondaryPanel.add(Panel2);
-        SecondaryPanel.add(NavigationPanel);
+                }
 
-        p.add(MainPanel);
-        p.add(SecondaryPanel);
+        }
 
-        // -------------------------------------------------------------------------------
-        SearchButton.addActionListener(new Search());
-        AddButton.addActionListener(new Add());
-        DeleteButton.addActionListener(new Delete());
-        ModifyButton.addActionListener(new Modify());
-        Reservation.addActionListener(new Reservation());
-        Home.addActionListener(new Home());
-        Books.addActionListener(new Books());
+        class Home implements ActionListener {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                        dispose();
+                        Acceuil n = new Acceuil();
+                        n.setVisible(true);
+                        n.setLocationRelativeTo(null);
+                }
 
-        // -------------------------------------------------------------------------------
+        }
 
-        frame.add(p);
-        frame.setVisible(true);
-    }
+        class Books implements ActionListener {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                        dispose();
+                        CreateNewBooks n = new CreateNewBooks();
+                        n.setVisible(true);
+                        n.setLocationRelativeTo(null);
 
-    public Boolean Test(int n) {
+                }
+
+        }
+
+        class History implements ActionListener {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                        dispose();
+                        Statistics n = new Statistics();
+                        n.setVisible(true);
+                        n.setLocationRelativeTo(null);
+
+                }
+
+        }
+
+        // Variables declaration - do not modify
+        private javax.swing.JButton AddButton;
+        private javax.swing.JButton DeleteButton;
+        private javax.swing.JButton History;
+        private javax.swing.JButton Home;
+        private javax.swing.JTextField ID;
+        private javax.swing.JTextField IDSeDe;
+        private javax.swing.JButton Books;
+        private javax.swing.JButton ModifyButton;
+        private javax.swing.JPanel NavigationPanel;
+        private javax.swing.JTextField Nom;
+        private javax.swing.JComboBox Profession;
+        private javax.swing.JButton Reservation;
+        private javax.swing.JButton SearchButton;
+        private javax.swing.JPanel jPanel1;
+        private javax.swing.JPanel jPanel2;
+        private javax.swing.JPanel jPanel3;
+        private JScrollPane Scroll;
+        String[] columns = { "IDENTIFIANT", "Nom et Prenom", "Profession" };
+        DefaultTableModel ModelTable = new DefaultTableModel(columns, 0);
+        private JTable AbonneActuel = new JTable(ModelTable);
+
+        public Connecting bd = new Connecting();
         ResultSet rst;
         Statement st;
-
-        String requete = "select * from abonne where id =" + n;
-        try {
-            st = bd.BaseDeDonnees().createStatement();
-            rst = st.executeQuery(requete);
-            if (rst.next()) { // Check if result set is not empty
-                return true;
-            } else {
-                return false;
-            }
-        } catch (SQLException ex) {
-            return false;
-        }
-    }
-
-    class Search implements ActionListener {
-        private int ID;
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-            try {
-                ID = Integer.parseInt(CreateNewMembers.this.IDSeDe.getText().toString());
-
-                ResultSet rst;
-                Statement st;
-
-                String requete = "select * from abonne where id ='" + ID + "'";
-
-                st = bd.BaseDeDonnees().createStatement();
-                rst = st.executeQuery(requete);
-
-                if (rst.next()) {
-                    JOptionPane.showMessageDialog(null,
-                            "L'identifiant " + ID + " correspond à l'abonnée " + rst.getString("NomPrenom")
-                                    + " qui a comme profession " + rst.getString("proffession"),
-                            "Résultat recherche", JOptionPane.INFORMATION_MESSAGE);
-                    IDSeDe.setText(null);
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "Cet identifiant n'est pas utilisé", "Résultat recherche",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (NumberFormatException exception) {
-                JOptionPane.showMessageDialog(null, "L'identifiant doit etre un entier", "Entrée Invalide",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-
-            catch (SQLException ex) {
-            }
-
-        }
-
-    }
-
-    void initialiserChamps() {
-        Nom.setText(null);
-        ID.setText(null);
-        Profession.setSelectedIndex(0);
-        remplir();
-    }
-
-    class Add implements ActionListener {
-        private int I;
-        private String name;
-        private String Job;
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-            try {
-                I = Integer.parseInt(CreateNewMembers.this.ID.getText().toString());
-                name = Nom.getText().toString();
-                Job = Profession.getSelectedItem().toString();
-
-                if (Test(I) == false) {
-                    if (name.isEmpty() || Job.equals(Profession.getItemAt(0))) {
-                        JOptionPane.showMessageDialog(null, "Veuillez remplier tous les champs", "Erreur Saisie",
-                                JOptionPane.ERROR_MESSAGE);
-                    } else {
-                        int choice = JOptionPane.showConfirmDialog(null, "Voulez-vous ajouter ce nouveau abonné",
-                                "Confirmation", JOptionPane.YES_NO_OPTION);
-                        if (choice == JOptionPane.YES_OPTION) {
-                            Statement st = bd.BaseDeDonnees().createStatement();
-                            String qr = "INSERT INTO abonne (id, NomPrenom, Proffession) VALUES (" + I + ", '" + name
-                                    + "', '" + Job + "')";
-                            int res = st.executeUpdate(qr);
-                            if (res > 0) {
-                                JOptionPane.showMessageDialog(null, "Insertion bien effectuée", "Succes",
-                                        JOptionPane.INFORMATION_MESSAGE);
-                                initialiserChamps();
-
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Echec de l'insertion", "Echec",
-                                        JOptionPane.ERROR_MESSAGE);
-                            }
-                        } else {
-                            initialiserChamps();
-                        }
-                    }
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "ID already used", "Invalid Input",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (NumberFormatException exception) {
-                JOptionPane.showMessageDialog(null, "L'identifiant doit etre un entier", "Entrée Invalide",
-                        JOptionPane.ERROR_MESSAGE);
-            } catch (SQLException ex) {
-            }
-
-        }
-
-    }
-
-    class Delete implements ActionListener {
-        private int ID;
-
-        void supprime() throws SQLException {
-            st = bd.BaseDeDonnees().createStatement();
-            int res = st.executeUpdate("delete from abonne where id =" + ID);
-            if (res > 0) {
-                JOptionPane.showMessageDialog(null, "Suppression bien effectuée", "Succes",
-                        JOptionPane.INFORMATION_MESSAGE);
-                IDSeDe.setText(null);
-                remplir();
-            } else {
-                JOptionPane.showMessageDialog(null, "Echec de la Suppression", "Echec",
-                        JOptionPane.ERROR_MESSAGE);
-                IDSeDe.setText(null);
-            }
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // il faut penser à la dependance
-            try {
-                ID = Integer.parseInt(CreateNewMembers.this.IDSeDe.getText().toString());
-
-                if (Test(ID) == true) {
-                    int choice = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment supprimer ce membre ?",
-                            "Confirmation de la suppression", JOptionPane.YES_NO_OPTION);
-
-                    if (choice == JOptionPane.YES_OPTION) {
-                        try {
-
-                            st = bd.BaseDeDonnees().createStatement();
-                            rst = st.executeQuery("select * from emprunt where AbID = " + ID);
-
-                            if (rst.next()) {
-                                rst = st.executeQuery("select * from emprunt where Retour is null");
-                                if (rst.next()) {
-                                    choice = JOptionPane.showConfirmDialog(null,
-                                            "Cet abonné n'a pas encore rendu un ou plusieurs livres, Voulez-vous vraiment le supprimer ?",
-                                            "Confirmation de la suppression", JOptionPane.YES_NO_OPTION);
-
-                                    if (choice == JOptionPane.YES_OPTION) {
-                                        st.executeUpdate("delete from emprunt where AbID =" + ID);
-                                        supprime();
-                                    } else {
-                                        JOptionPane.showMessageDialog(null, "Suppression annulée", "Annulé",
-                                                JOptionPane.INFORMATION_MESSAGE);
-                                        IDSeDe.setText(null);
-                                    }
-                                } else {
-                                    st.executeUpdate("delete from emprunt where AbID =" + ID);
-                                    supprime();
-                                }
-
-                            } else {
-                                supprime();
-                            }
-
-                        } catch (SQLException ex) {
-                        }
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Cet identifiant n'est pas utilisé", "Entrée Invalide",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (NumberFormatException exception) {
-                JOptionPane.showMessageDialog(null, "L'identifiant doit etre un entier", "Entrée Invalide",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-
-        }
-
-    }
-
-    class Modify implements ActionListener {
-        private int ID;
-        private String name;
-        private String Job;
-        private Statement st;
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // il faut penser à la dependance
-            try {
-                ID = Integer.parseInt(CreateNewMembers.this.ID.getText().toString());
-                name = Nom.getText().toString();
-                Job = Profession.getSelectedItem().toString();
-
-                if (Test(ID) == true) {
-                    int choice = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment modifier ce membre ?",
-                            "Confirmation de la modification", JOptionPane.YES_NO_OPTION);
-                    if (choice == JOptionPane.YES_OPTION) {
-                        try {
-                            st = bd.BaseDeDonnees().createStatement();
-
-                            if (name.isEmpty() && !Job.equals(Profession.getItemAt(0))) {
-                                String qr = "update abonne set Proffession='" + Job + "' where id='" + ID + "'";
-                                int result = st.executeUpdate(qr);
-                                if (result > 0) {
-                                    JOptionPane.showMessageDialog(null, "Moodification bien effectuée", "Modification",
-                                            JOptionPane.INFORMATION_MESSAGE);
-                                    initialiserChamps();
-                                }
-
-                            } else if (!name.isEmpty() && Job.equals(Profession.getItemAt(0))) {
-                                String qr = "update abonne set NomPrenom='" + name + "' where id=" + ID;
-                                int result = st.executeUpdate(qr);
-                                if (result > 0) {
-                                    JOptionPane.showMessageDialog(null, "Modification bien effectuée", "Modification",
-                                            JOptionPane.INFORMATION_MESSAGE);
-                                    initialiserChamps();
-                                }
-
-                            } else if (!name.isEmpty() && !Job.equals(Profession.getItemAt(0))) {
-                                String qr = "update abonne set NomPrenom='" + name + "' where id=" + ID;
-                                int result = st.executeUpdate(qr);
-                                qr = "update abonne set Proffession='" + Job + "' where id='" + ID + "'";
-                                result = st.executeUpdate(qr);
-                                if (result > 0) {
-                                    JOptionPane.showMessageDialog(null, "Modification bien effectuée", "Modification",
-                                            JOptionPane.INFORMATION_MESSAGE);
-                                    initialiserChamps();
-                                }
-
-                            } else if (name.isEmpty() && Job.equals(Profession.getItemAt(0))) {
-                                JOptionPane.showMessageDialog(null, "Rien à modifier", "Modification",
-                                        JOptionPane.INFORMATION_MESSAGE);
-                                CreateNewMembers.this.ID.setText(null);
-                            }
-                        } catch (SQLException ex) {
-                        }
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Cet identifiant n'est pas utilisé", "Entrée Invalide",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (NumberFormatException exception) {
-                JOptionPane.showMessageDialog(null, "L'identifiant doit etre un entier", "Entrée Invalide",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-
-        }
-
-    }
-
-    class Reservation implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            EmpruntRetour n = new EmpruntRetour();
-            n.setVisible(true);
-            n.setLocationRelativeTo(null);
-
-        }
-
-    }
-
-    class Home implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            frame.dispose();
-            Acceuil n = new Acceuil();
-            n.setVisible(true);
-            n.setLocationRelativeTo(null);
-        }
-
-    }
-
-    class Books implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            frame.dispose();
-            CreateNewBooks n = new CreateNewBooks();
-            n.setVisible(true);
-            n.setLocationRelativeTo(null);
-
-        }
-
-    }
-
 }

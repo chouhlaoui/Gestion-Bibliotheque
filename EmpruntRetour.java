@@ -506,78 +506,93 @@ public class EmpruntRetour extends JFrame {
                                         rst = st.executeQuery(requete);
 
                                         if (rst.next()) {
-                                                String lectureBD = rst.getString("NBCopie");
-                                                int nbcopie = Integer.parseInt(lectureBD) - 1;
-                                                lectureBD = rst.getString("IDLivre");
-                                                int Livreid = Integer.parseInt(lectureBD);
+                                                String categorie = rst.getString("Categorie");
+                                                if (categorie.equals("Journaux") || categorie.equals("Revues")
+                                                                || categorie.equals("Nouveautés")) {
+                                                        JOptionPane.showMessageDialog(null,
+                                                                        "Ce livre est destiné à la lecture dans la bibliotheque seulement",
+                                                                        "Erreur",
+                                                                        JOptionPane.ERROR_MESSAGE);
+                                                } else {
+                                                        String lectureBD = rst.getString("NBCopie");
+                                                        int nbcopie = Integer.parseInt(lectureBD) - 1;
+                                                        lectureBD = rst.getString("IDLivre");
+                                                        int Livreid = Integer.parseInt(lectureBD);
 
-                                                requete = "select * from abonne where id = " + idLu;
-                                                rst = st.executeQuery(requete);
+                                                        requete = "select * from abonne where id = " + idLu;
+                                                        rst = st.executeQuery(requete);
 
-                                                if (rst.next()) {
-                                                        String TestEmprunt = "select * from emprunt where (AbID ="
-                                                                        + idLu
-                                                                        + ") and (LivID=" + Livreid
-                                                                        + ") and (Retour is null)";
-                                                        rst = st.executeQuery(TestEmprunt);
                                                         if (rst.next()) {
-                                                                JOptionPane.showMessageDialog(null,
-                                                                                "Vous ne pouvez pas prendre ce livre car vous l'avez pris et vous ne l'avez pas encore rendu",
-                                                                                "Echec",
-                                                                                JOptionPane.ERROR_MESSAGE);
-                                                        } else {
-
-                                                                requete = "update livre set NBCopie = " + nbcopie
-                                                                                + " where titre = '"
-                                                                                + Livre
-                                                                                + "'";
-                                                                int resultat1 = st.executeUpdate(requete);
-
-                                                                if (resultat1 > 0) {
-
-                                                                        requete = "INSERT INTO emprunt(AbID,LivID,Sortie) VALUES ("
-                                                                                        + idLu + ","
-                                                                                        + Livreid + ","
-                                                                                        + "STR_TO_DATE('" + Date
-                                                                                        + "', '%d-%m-%Y'))";
-
-                                                                        Statement st2 = bd.BaseDeDonnees()
-                                                                                        .createStatement();
-                                                                        int resultat2 = st2.executeUpdate(requete);
-
-                                                                        if (resultat2 > 0) {
-                                                                                RemplirJCombo();
-                                                                                RemplirRetour();
-                                                                                EmpruntID.setText(null);
-                                                                                EmpruntDatePick.setCalendar(null);
-                                                                                JOptionPane.showMessageDialog(null,
-                                                                                                "Bonne Lecture !",
-                                                                                                "Succes",
-                                                                                                JOptionPane.INFORMATION_MESSAGE);
-                                                                                st2.close();
-                                                                                Confirmation = true;
-                                                                        } else {
-                                                                                st.cancel();
-                                                                                JOptionPane.showMessageDialog(null,
-                                                                                                "Echec d'emprunt",
-                                                                                                "Echec",
-                                                                                                JOptionPane.ERROR_MESSAGE);
-                                                                        }
-                                                                } else {
+                                                                String TestEmprunt = "select * from emprunt where (AbID ="
+                                                                                + idLu
+                                                                                + ") and (LivID=" + Livreid
+                                                                                + ") and (Retour is null)";
+                                                                rst = st.executeQuery(TestEmprunt);
+                                                                if (rst.next()) {
                                                                         JOptionPane.showMessageDialog(null,
-                                                                                        "Problème survenu",
+                                                                                        "Vous ne pouvez pas prendre ce livre car vous l'avez pris et vous ne l'avez pas encore rendu",
                                                                                         "Echec",
                                                                                         JOptionPane.ERROR_MESSAGE);
+                                                                } else {
+
+                                                                        requete = "update livre set NBCopie = "
+                                                                                        + nbcopie
+                                                                                        + " where titre = '"
+                                                                                        + Livre
+                                                                                        + "'";
+                                                                        int resultat1 = st.executeUpdate(requete);
+
+                                                                        if (resultat1 > 0) {
+
+                                                                                requete = "INSERT INTO emprunt(AbID,LivID,Sortie) VALUES ("
+                                                                                                + idLu + ","
+                                                                                                + Livreid + ","
+                                                                                                + "STR_TO_DATE('" + Date
+                                                                                                + "', '%d-%m-%Y'))";
+
+                                                                                Statement st2 = bd.BaseDeDonnees()
+                                                                                                .createStatement();
+                                                                                int resultat2 = st2
+                                                                                                .executeUpdate(requete);
+
+                                                                                if (resultat2 > 0) {
+                                                                                        RemplirJCombo();
+                                                                                        RemplirRetour();
+                                                                                        EmpruntID.setText(null);
+                                                                                        EmpruntDatePick.setCalendar(
+                                                                                                        null);
+                                                                                        JOptionPane.showMessageDialog(
+                                                                                                        null,
+                                                                                                        "Bonne Lecture !",
+                                                                                                        "Succes",
+                                                                                                        JOptionPane.INFORMATION_MESSAGE);
+                                                                                        st2.close();
+                                                                                        Confirmation = true;
+                                                                                } else {
+                                                                                        st.cancel();
+                                                                                        JOptionPane.showMessageDialog(
+                                                                                                        null,
+                                                                                                        "Echec d'emprunt",
+                                                                                                        "Echec",
+                                                                                                        JOptionPane.ERROR_MESSAGE);
+                                                                                }
+                                                                        } else {
+                                                                                JOptionPane.showMessageDialog(null,
+                                                                                                "Problème survenu",
+                                                                                                "Echec",
+                                                                                                JOptionPane.ERROR_MESSAGE);
+
+                                                                        }
 
                                                                 }
 
+                                                        } else {
+                                                                JOptionPane.showMessageDialog(null,
+                                                                                "Identifiant saisi non existant",
+                                                                                "Echec",
+                                                                                JOptionPane.ERROR_MESSAGE);
                                                         }
 
-                                                } else {
-                                                        JOptionPane.showMessageDialog(null,
-                                                                        "Identifiant saisi non existant",
-                                                                        "Echec",
-                                                                        JOptionPane.ERROR_MESSAGE);
                                                 }
 
                                         }

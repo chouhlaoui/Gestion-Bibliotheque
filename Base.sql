@@ -7,13 +7,14 @@ CREATE TABLE IF NOT EXISTS abonne (
 
 
 INSERT INTO abonne (id, NomPrenom, Proffession) VALUES
-(1, 'TARGOTO CHRISTIAN', 'élève'),
-(2, 'NGARKIRA HYACINTHE', 'étudiant'),
-(3, 'KOURABE YVES','élève'),
-(4, 'ZENABA YOUNOUS', 'enseignant'),
-(5, 'FATIME DAGO','élève'),
-(6, 'JEANNINE ROUTOUANG', 'autre'),
-(7, 'RAISSA BETEL', 'étudiant');
+(1, 'ahmed hmaidi', 'Elève'),
+(2, 'chourouk hlaoui', 'Etudiant'),
+(3, 'kamel echaieb','Ensignant'),
+(4, 'sameh mezni', 'Enseignant'),
+(5, 'fatma hlaoui','Elève'),
+(6, 'cyrine zekri', 'Autre'),
+(7, 'khalil aouini', 'Etudiant'),
+(8, 'isasam mezni', 'Etudiant');
 
 
 CREATE TABLE IF NOT EXISTS livre (
@@ -27,17 +28,14 @@ CREATE TABLE IF NOT EXISTS livre (
 
 INSERT INTO livre (IDLivre, titre, auteur, categorie, NBCopie) VALUES
 (1, "Les miserables", "Victor Hugo", "Roman", 5),
-(2, 'Tragedie', NULL, 'Revue', 1),
-(3, 'le soleil des independance', NULL, 'Nouvelle', 2),
+(2, 'Revue internationale de Géomatique', NULL, 'Revue', 1),
+(3, 'Le Horla', NULL, 'Nouvelle', 2),
 (4, 'Republique à vendre', NULL, 'Journal', 0),
 (5, 'Tartarin de Tarascon', NULL, 'Roman', 4),
-(6, 'Etudiant de soweto', NULL, 'Nouveauté', 5),
-(7, 'une vie de boy', NULL, 'Roman', 1);
+(6, 'It starts with us', NULL, 'Nouveauté', 5),
+(7, 'une vie de boy', NULL, 'Roman', 1),
+(8, 'It ends with us', NULL, 'Nouveauté', 5);
 
-INSERT INTO livre (IDLivre, titre, auteur, categorie, NBCopie) VALUES
-(17, "Les miserables", "Victor Hugo", "Roman", 5);
-
-select * from livre;
 
 CREATE TABLE Emprunt (
   ID INT PRIMARY KEY AUTO_INCREMENT ,
@@ -49,12 +47,18 @@ CREATE TABLE Emprunt (
   FOREIGN KEY (LivID) REFERENCES livre(IDLivre)
 );
 
-INSERT INTO emprunt(AbID,LivID,Sortie) VALUES (4,52,STR_TO_DATE('20-4-2023', '%d-%m-%Y'));
-
 create VIEW acceuil as
 select l.titre, l.IDLivre, a.NomPrenom, e.Sortie, a.id from emprunt as e
 JOIN livre as l on (LivID = IDLivre) 
 JOIN abonne as a on(AbID = a.id);
 
 
+CREATE TABLE NonDispoLivre (
+  titre varchar(90) NOT NULL,
+  auteur varchar(50) DEFAULT NULL
+);
+
+CREATE TABLE IF NOT EXISTS AncienAbonne (
+  NomPrenom varchar(100) NOT NULL
+) ;
 
